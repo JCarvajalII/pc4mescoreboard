@@ -35,3 +35,7 @@ function getOpenPercentage(units) {
     percentage = GOOD_GRADE + ((15 - 5) * 5);
     return percentage + '%';
 }
+
+$(document).ready(function () {
+    $('#myTable').DataTable();
+});

@@ -18,6 +18,7 @@
             display: inline;
             width: 100px;
         }
+
     </style>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -64,14 +65,12 @@
         Score for the number of ticket
     -->
     <div class="container-fluid">
-        <h4>No. of Open Tickets: <span id="noTickets">12</span></h4>
-        <h4>Open Tickets Threshold: <span id="opentthreshold">10</span></h4>
-        <h4>Open Ticket Score: <span id="opentscore"></span></h4>
+        <h4>No. of Open Tickets: <span id="noTickets">5</span></h4>
+        <h4>Open Tickets Threshold: <span id="opentthreshold"></span></h4>
+        <h4>Open Ticket Score: <span id="opentscore">0%</span></h4>
     </div>
-    <script>
-        var OPEN_TH = 15;
-        document.getElementById('opentthreshold').innerHTML = OPEN_TH;
-    </script>
     <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/open.js"></script>
 </body>
+
 </html>

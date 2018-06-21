@@ -13,6 +13,15 @@
             right: 0;
             bottom: 0;
         }
+
+        #sump {
+            display: inline-block;
+            width: 88.4px;
+        }
+
+        /*
+ ion-icon { font-size: 40px; }
+*/
     </style>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -33,91 +42,93 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="jumbotron jumbotron-fluid">
-            <h1>PC4ME SCOREBBOARD</h1>
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand- navbar-light bg-dark">
+                <a class="navbar-brand">
+                    <p style="color: white;">Hello</p>
+                </a>
+            </nav>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>Total Score</h1>
-                    <p class="display-1 text-success">100%</p>
-                    <p class="text-center ">Very Good!
-                        <ion-icon name="happy"></ion-icon>
-                    </p>
-                </div>
-                <div class="col-sm-6">
-                    <h1>SUMMARY</h1>
-                    <div class="card">
-                        <div class="card-header">Open</div>
-                        <div class="card-body">%</div>
-                        <div class="card-header">Overdue</div>
-                    </div>
-                    <!--
-                <table class="table table-striped">
-                    <thead>
-                        <th class="text-center">Ticket Type</th>
-                        <th>Score</th>
-                    </thead>
-                    <tr>
-                        <td class="text-center">Open</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Overdue</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Pick Up</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">RMA</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Ordered Parts</td>
-                        <td></td>
-                    </tr>
-                </table>
--->
-                </div>
-            </div>
-        </div>
-        <br><br>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-collapse="#details">Show Details</button>
-        <div id="details" class="collapse">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="container">
-                        <h2>Statistics</h2>
-                        <br>
-                        <!-- Nav pills -->
-                        <ul class="nav nav-pills" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#overall">Overall</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#open">Open</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#overdue">Overdue</a>
-                            </li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div id="overall" class="container tab-pane active"><br>
-                                <h3>Overall</h3>
-
-                            </div>
-                            <div id="open" class="container tab-pane fade"><br>
-                                <h3>Open</h3>
-
-                            </div>
-                            <div id="overdue" class="container tab-pane fade"><br>
-                                <h3>Overdue</h3>
-
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="overall" class="container-fluid tab-pane active"><br>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-4" style="background-color: white;">
+                                    <div class="card">
+                                        <h1 class="card-header">Total Score</h1>
+                                    </div>
+                                    <p class="display-1 text-success" style="font-size: 150px;">100%</p>
+                                    <p>Very Good!
+                                        <ion-icon name="happy"></ion-icon>
+                                    </p>
+                                </div>
+                                <div class="col-sm-8" style="background-color: white;">
+                                    <div class="card">
+                                        <h1 class="card-header">Summary</h1>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-header h4" style="background: #4dff4d;">
+                                                    <ion-icon name="open"></ion-icon>&nbsp;Open</div>
+                                                <div class="card-body">
+                                                    <h5 id="sump" class="text-left">Score</h5>
+                                                    <p id="sump" class="text-right">%</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-header h4" style="background: #4d4dff;">
+                                                    <ion-icon name="thumbs-up"></ion-icon>Pick Up</div>
+                                                <div class="card-body">
+                                                    <h5 id="sump" class="text-left">Score</h5>
+                                                    <p id="sump" class="text-right">%</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-header h4" style="background: #ff704d;">
+                                                    <ion-icon name="cart"></ion-icon>Ordered Parts</div>
+                                                <div class="card-body">
+                                                    <h5 id="sump" class="text-left">Score</h5>
+                                                    <p id="sump" class="text-right">%</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="card">
+                                                <div class="card-header h4" style="background: #ffff4d;">
+                                                    <ion-icon name="alert"></ion-icon>&nbsp;Overdue</div>
+                                                <div class="card-body">
+                                                    <h5 id="sump" class="text-left">Score</h5>
+                                                    <p id="sump" class="text-right">%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card">
+                                                <div class="card-header h4" style="background: #ffc34d;">
+                                                    <ion-icon name="return-left"></ion-icon>RMA</div>
+                                                <div class="card-body">
+                                                    <h5 id="sump" class="text-left">Score</h5>
+                                                    <p id="sump" class="text-right">%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

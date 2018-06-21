@@ -18,10 +18,6 @@
             display: inline-block;
             width: 88.4px;
         }
-
-        /*
- ion-icon { font-size: 40px; }
-*/
     </style>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -43,12 +39,11 @@
 
 <body>
     <div class="container-fluid">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand- navbar-light bg-dark">
-                <a class="navbar-brand">
-                    <p style="color: white;">Hello</p>
-                </a>
-            </nav>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class=" text-center">
+                    <ion-icon name="trending-up"></ion-icon>Scoreboard</h1>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -57,7 +52,7 @@
                     <div id="overall" class="container-fluid tab-pane active"><br>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-sm-4" style="background-color: white;">
+                                <div class="col-sm-4" style="background-color: white; padding: 20px;">
                                     <div class="card">
                                         <h1 class="card-header">Total Score</h1>
                                     </div>
@@ -66,19 +61,22 @@
                                         <ion-icon name="happy"></ion-icon>
                                     </p>
                                 </div>
-                                <div class="col-sm-8" style="background-color: white;">
+                                <div class="col-sm-8" style="background-color: white; padding: 20px;">
                                     <div class="card">
-                                        <h1 class="card-header">Summary</h1>
+                                        <h1 class="card-header" style="background: ;">Summary</h1>
                                     </div>
                                     <br>
-                                    <div class="row">
+                                    <div class="row ">
                                         <div class="col-sm-4">
                                             <div class="card">
                                                 <div class="card-header h4" style="background: #4dff4d;">
-                                                    <ion-icon name="open"></ion-icon>&nbsp;Open</div>
+                                                    <ion-icon name="open"></ion-icon>&nbsp;Open
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 id="sump" class="text-left">Score</h5>
-                                                    <p id="sump" class="text-right">%</p>
+                                                    <h5 id="sump" class="text-left">Score:<span>%</span></h5>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        View Details
+                                                    </button>
                                                 </div>
                                             </div>
                                             <br>
@@ -86,10 +84,13 @@
                                         <div class="col-sm-4">
                                             <div class="card">
                                                 <div class="card-header h4" style="background: #4d4dff;">
-                                                    <ion-icon name="thumbs-up"></ion-icon>Pick Up</div>
+                                                    <ion-icon name="thumbs-up"></ion-icon>Pick Up
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 id="sump" class="text-left">Score</h5>
-                                                    <p id="sump" class="text-right">%</p>
+                                                    <h5 id="sump" class="text-left">Score:<span>%</span></h5>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        View Details
+                                                    </button>
                                                 </div>
                                             </div>
                                             <br>
@@ -97,10 +98,13 @@
                                         <div class="col-sm-4">
                                             <div class="card">
                                                 <div class="card-header h4" style="background: #ff704d;">
-                                                    <ion-icon name="cart"></ion-icon>Ordered Parts</div>
+                                                    <ion-icon name="cart"></ion-icon>Ordered Parts
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 id="sump" class="text-left">Score</h5>
-                                                    <p id="sump" class="text-right">%</p>
+                                                    <h5 id="sump" class="text-left">Score:<span>%</span></h5>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        View Details
+                                                    </button>
                                                 </div>
                                             </div>
                                             <br>
@@ -110,20 +114,26 @@
                                         <div class="col-sm-6">
                                             <div class="card">
                                                 <div class="card-header h4" style="background: #ffff4d;">
-                                                    <ion-icon name="alert"></ion-icon>&nbsp;Overdue</div>
+                                                    <ion-icon name="alert"></ion-icon>&nbsp;Overdue
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 id="sump" class="text-left">Score</h5>
-                                                    <p id="sump" class="text-right">%</p>
+                                                    <h5 id="sump" class="text-left">Score:<span>%</span></h5>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        View Details
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="card">
                                                 <div class="card-header h4" style="background: #ffc34d;">
-                                                    <ion-icon name="return-left"></ion-icon>RMA</div>
+                                                    <ion-icon name="return-left"></ion-icon>RMA
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 id="sump" class="text-left">Score</h5>
-                                                    <p id="sump" class="text-right">%</p>
+                                                    <h5 id="sump" class="text-left">Score:<span>%</span></h5>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        View Details
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

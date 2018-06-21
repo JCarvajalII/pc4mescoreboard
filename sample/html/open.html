@@ -14,9 +14,9 @@
             bottom: 0;
         }
 
-        #sump {
-            display: inline-block;
-            width: 88.4px;
+        .openH {
+            display: inline;
+            width: 100px;
         }
     </style>
     <!-- Latest compiled and minified CSS -->
@@ -48,13 +48,30 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <h1 class="card-header">
-                        <a href="#">
+                    <div class="card-header">
+                        <a class="openH" href="../index.html">
                             <ion-icon name="arrow-round-back"></ion-icon>
-                        </a>OPEN TICKETS</h1>
+                        </a>
+                        <h1 class="openH">OPEN TICKETS</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--  What is contained here?
+        Number of open tickets
+        Open tickets threshold
+        Score for the number of ticket
+    -->
+    <div class="container-fluid">
+        <h4>No. of Open Tickets: <span id="noTickets">12</span></h4>
+        <h4>Open Tickets Threshold: <span id="opentthreshold">10</span></h4>
+        <h4>Open Ticket Score: <span id="opentscore"></span></h4>
+    </div>
+    <script>
+        var OPEN_TH = 15;
+        document.getElementById('opentthreshold').innerHTML = OPEN_TH;
+    </script>
+    <script type="text/javascript" src="../js/index.js"></script>
 </body>
 </html>

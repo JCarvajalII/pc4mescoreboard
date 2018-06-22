@@ -1,0 +1,38 @@
+THRESHOLD
+Open - 15 
+Pick Up - 15
+Overdue - 0
+Ordered Parts - 5
+RMA - 5
+
+
+
+DATABASE
+DB NAME: scoreboardDB
+Every start of the day (12:01 AM- 8:59 AM), *new row is created*. The data from the previous row will be carried over to the new one
+Scoreboard will show the score for the day in realtime. score is based on the number of each tickets type being processed. 
+Every end of the month, day 30/31, time 11:59pm, score will be calculated based on the score of each day of the month. 
+
+
+Table: ticketsDay
+Columns:
+td_id - INT(11)PK NN
+open_ticket_day - 
+overdue_ticket_day
+pickup_ticket_day
+orderedpart_ticket_day
+rma_ticket_day
+score_day
+date(day month year)
+
+Table: ticketsMonth
+Columns:
+tm_id
+total_open_ticket
+total_overdue_ticket
+total_pickup_ticket
+total_orderedpart_ticket
+total_rma_ticket
+score_month
+date(month and year only)
+td_id (FK)

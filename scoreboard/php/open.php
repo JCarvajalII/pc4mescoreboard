@@ -22,20 +22,15 @@
     </style>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <!-- Ionicons  -->
     <script src="https://unpkg.com/ionicons@4.2.0/dist/ionicons.js"></script>
-    <!--    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">-->
-    <!--    <script src="//cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>-->
-    <title>Title</title>
+    <title></title>
 </head>
 
 <body>
@@ -50,7 +45,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <a class="openH" href="../index.html">
+                        <a class="openH" href="../index.php">
                             <ion-icon name="arrow-round-back"></ion-icon>
                         </a>
                         <h1 class="openH">OPEN TICKETS</h1>
@@ -65,12 +60,13 @@
         Score for the number of ticket
     -->
     <div class="container-fluid">
-        <h4>No. of Open Tickets: <span id="noTickets">5</span></h4>
+        <h4>As of <span id="date"></span></h4>
+        <script type="text/javascript" src="../js/open.js" async></script>
+        <h4>No. of Open Tickets: <span id="noTickets">0</span></h4>
         <h4>Open Tickets Threshold: <span id="opentthreshold"></span></h4>
         <h4>Open Ticket Score: <span id="opentscore">0%</span></h4>
     </div>
-    <script type="text/javascript" src="../js/index.js"></script>
-    <script type="text/javascript" src="../js/open.js"></script>
+    <!--    <script type="text/javascript" src="../js/index.js"></script>-->
 </body>
 
 </html>

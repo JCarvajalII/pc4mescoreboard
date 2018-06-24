@@ -1,4 +1,5 @@
 <?php
+include_once 'connectDB.php';
 function getOpenPercentage($num){
     $grade = 100;
     $openThreshold = 15;
@@ -62,4 +63,5 @@ function getOrderedPartsPercentage($num){
     }
     return $percentage;
 }
+
 ?>

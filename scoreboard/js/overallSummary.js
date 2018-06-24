@@ -1,5 +1,5 @@
 const date = new Date();
-var day = date.getDate() + 1;
+var day = date.getDate();
 var year = date.getFullYear();
 const months = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"

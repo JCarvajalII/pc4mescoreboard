@@ -54,10 +54,22 @@
                                     <div class="card">
                                         <h1 class="card-header">Total Score</h1>
                                     </div>
-                                    <p class="display-1 text-success" style="font-size: 150px;">100%</p>
+                                    <?php
+                                        include_once 'php/connectDB.php';
+                                        include_once 'php/test.php';
+                                        $sql = "SELECT openticket_score, overdueticket_score, pickupticket_score, orderedpartticket_score, rmaticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
+                                        $result = $db_con->query($sql);
+                                        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach ($data as $row){
+                                            $totalScore = ($row['openticket_score'] + $row['overdueticket_score'] + $row['pickupticket_score'] + $row['orderedpartticket_score'] + $row['rmaticket_score'])/5;
+                                            echo "<p class=\"display-1 text-success\" style=\"font-size: 150px;\">" . $totalScore . "%</p>";
+                                        }
+                                    ?>
+                                        <!--
                                     <p>Very Good!
                                         <ion-icon name="happy"></ion-icon>
                                     </p>
+-->
                                 </div>
                                 <div class="col-sm-8" style="background-color: white; padding: 20px;">
                                     <div class="card">
@@ -72,22 +84,17 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php
-                                                        include_once 'php/connectDB.php';
-                                                        include_once 'php/test.php';
-                                                        $sql = "SELECT open_ticket_day from ticketsday where td_id='1'";
+                                                        $sql = "SELECT MAX(td_id) AS last_id,open_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
                                                         $result = $db_con->query($sql);
                                                         $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach($data as $row){
-                                                          echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"OPENScore\">&nbsp;" . getOpenPercentage($row['open_ticket_day']) . "%</span></h5>";  
-                                                        }
-                                                        foreach($data as $row){
-                                                            echo "<p>No. of Tickets: <span id=\"OPENTicket\">" . $row['open_ticket_day'] . "</span></p>";
+                                                            $sqlUpdateOpenScore = "UPDATE `ticketsday` SET `openticket_score`='" . getOpenPercentage($row['open_ticket_day']) . "', `date`=NOW() WHERE td_id='" . $row['last_id'] . "';";
+                                                            $stmt = $db_con->prepare($sqlUpdateOpenScore);
+                                                            $stmt->execute();
+                                                            echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"OPENScore\">&nbsp;" . getOpenPercentage($row['open_ticket_day']) . "%</span></h5>";  
                                                         }
                                                     ?>
-                                                        <form method="GET" action="php/add.php">
-                                                            <button type="submit" name="submit">Add 1 to ticket</button>
-                                                        </form>
-                                                        <a id="openHref" href="php/open.php">View Details</a>
+
                                                 </div>
                                             </div>
                                             <br>
@@ -99,17 +106,17 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php
-                                                        $sql = "SELECT pickup_ticket_day from ticketsday where td_id='1'";
+                                                        $sql = "SELECT MAX(td_id) AS last_id,pickup_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
                                                         $result = $db_con->query($sql);
                                                         $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach($data as $row){
+                                                            $sqlUpdatePickUPScore = "UPDATE `ticketsday` SET `pickupticket_score`='" . getPickUpPercentage($row['pickup_ticket_day']) . "', `date`=NOW() WHERE td_id='" . $row['last_id'] . "';";
+                                                            $stmt = $db_con->prepare($sqlUpdatePickUPScore);
+                                                            $stmt->execute();
                                                             echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"PICKUPScore\">&nbsp;" . getPickUpPercentage($row['pickup_ticket_day']) . "%</span></h5>";  
                                                         }
-                                                        foreach($data as $row){
-                                                            echo "<p>No. of Tickets: <span id=\"PICKUPTicket\">" . $row['pickup_ticket_day'] . "</span></p>";
-                                                        }
                                                     ?>
-                                                        <a id="pickupHref" href="php/pickup.php">View Details</a>
+
                                                 </div>
                                             </div>
                                             <br>
@@ -121,17 +128,17 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php
-                                                        $sql = "SELECT orderedpart_ticket_day from ticketsday where td_id='1'";
+                                                        $sql = "SELECT MAX(td_id) AS last_id,orderedpart_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
                                                         $result = $db_con->query($sql);
                                                         $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach($data as $row){
+                                                            $sqlUpdateOrderedPartScore = "UPDATE `ticketsday` SET `orderedpartticket_score`='" . getOrderedPartsPercentage($row['orderedpart_ticket_day']) . "', `date`=NOW() WHERE td_id='" . $row['last_id'] . "';";
+                                                            $stmt = $db_con->prepare($sqlUpdateOrderedPartScore);
+                                                            $stmt->execute();
                                                             echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"ORDEREDPARTScore\">&nbsp;" . getOrderedPartsPercentage($row['orderedpart_ticket_day']) . "%</span></h5>";  
                                                         }
-                                                        foreach($data as $row){
-                                                            echo "<p>No. of Tickets: <span id=\"ORDEREDPARTSTicket\">" . $row['orderedpart_ticket_day'] . "</span></p>";
-                                                        }
                                                     ?>
-                                                        <a id="pickupHref" href="php/orderedParts.php">View Details</a>
+
                                                 </div>
                                             </div>
                                             <br>
@@ -145,17 +152,17 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php
-                                                        $sql = "SELECT overdue_ticket_day from ticketsday where td_id='1'";
+                                                        $sql = "SELECT MAX(td_id) AS last_id,overdue_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
                                                         $result = $db_con->query($sql);
                                                         $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach($data as $row){
-                                                            echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"OVERDUEScore\">&nbsp;" . getOverduePercentage($row['overdue_ticket_day']) . "%</span></h5>";  
-                                                        }
-                                                        foreach($data as $row){
-                                                            echo "<p>No. of Tickets: <span id=\"OVERDUETicket\">" . $row['overdue_ticket_day'] . "</span></p>";
+                                                            $sqlUpdateOverdueScore = "UPDATE `ticketsday` SET `overdueticket_score`='" . getOverduePercentage($row['overdue_ticket_day']) . "', `date`=NOW() WHERE td_id='" . $row['last_id'] . "';";
+                                                            $stmt = $db_con->prepare($sqlUpdateOverdueScore);
+                                                            $stmt->execute();
+                                                            echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"OVERDUEScore\">&nbsp;" . getOverduePercentage($row['overdue_ticket_day']) . "%</span></h5>";   
                                                         }
                                                     ?>
-                                                        <a id="pickupHref" href="php/overdue.php">View Details</a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -166,20 +173,25 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php
-                                                        $sql = "SELECT rma_ticket_day from ticketsday where td_id='1'";
+                                                        $sql = "SELECT MAX(td_id) AS last_id,rma_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1;";
                                                         $result = $db_con->query($sql);
                                                         $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach($data as $row){
+                                                            $sqlUpdateRMAScore = "UPDATE `ticketsday` SET `rmaticket_score`='" . getRMAPercentage($row['rma_ticket_day']) . "', `date`=NOW() WHERE td_id='" . $row['last_id'] . "';";
+                                                            $stmt = $db_con->prepare($sqlUpdateRMAScore);
+                                                            $stmt->execute();
                                                             echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"RMAScore\">&nbsp;" . getRMAPercentage($row['rma_ticket_day']) . "%</span></h5>";  
                                                         }
-                                                        foreach($data as $row){
-                                                            echo "<p>No. of Tickets: <span id=\"RMATicket\">" . $row['rma_ticket_day'] . "</span></p>";
-                                                        }
                                                     ?>
-                                                        <a id="pickupHref" href="php/rma.php">View Details</a>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <br>
+                                    <div class="card-footer">
+                                        <a href="php/overallSummary.php">
+                                            <h4>View Details</h4>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

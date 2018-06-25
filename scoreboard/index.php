@@ -54,6 +54,15 @@
                                     <div class="card">
                                         <h1 class="card-header">Total Score</h1>
                                     </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="card-header">Today</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card-header">This Month</div>
+                                        </div>
+                                    </div>
                                     <?php
                                         include_once 'php/connectDB.php';
                                         include_once 'php/test.php';
@@ -140,7 +149,6 @@
                                                             echo "<h5 id=\"sump\" class=\"text-left\">Score:<span id=\"PICKUPScore\">&nbsp;" . getPickUpPercentage($row['pickup_ticket_day']) . "</span></h5>";  
                                                         }
                                                     ?>
-
                                                 </div>
                                             </div>
                                             <br>

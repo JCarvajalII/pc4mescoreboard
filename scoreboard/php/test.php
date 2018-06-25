@@ -6,11 +6,18 @@ function getOpenPercentage($num){
     $percentage = 0;
     if($num == 0){
         $percentage = $grade;
+    }else if($num == $openThreshold) {
+        $percentage = $grade/2;
     }else {
-        $percentage = $grade + (($openThreshold - $num)*5);
-        
+        $percentage = round($grade-(($num/$openThreshold)*50));
     }
-    return $percentage;
+    if ($percentage < 50){
+        return $percentage . "% " ."<ion-icon name=\"alert\" style=\"color:red;\"></ion-icon>";
+    }else if($percentage > 50){
+        return $percentage . "% " ."<ion-icon name=\"happy\" style=\"color:green;\"></ion-icon>";
+    }else {
+        return $percentage . "% " ."<ion-icon name=\"warning\" style=\"color:yellow;\"></ion-icon>";
+    }
 }
 
 function getPickUpPercentage($num){
@@ -19,10 +26,18 @@ function getPickUpPercentage($num){
     $percentage = 0;
     if($num == 0){
         $percentage = $grade;
+    }else if($num == $pickUpThreshold) {
+        $percentage = $grade/2;
     }else {
-        $percentage = $grade + (($pickUpThreshold - $num)*5);
+        $percentage = round($grade-(($num/$pickUpThreshold)*50));    
     }
-    return $percentage;
+    if ($percentage < 50){
+        return $percentage . "% " ."<ion-icon name=\"alert\" style=\"color:red;\"></ion-icon>";
+    }else if($percentage > 50){
+        return $percentage . "% " ."<ion-icon name=\"happy\" style=\"color:green;\"></ion-icon>";
+    }else {
+        return $percentage . "% " ."<ion-icon name=\"warning\" style=\"color:yellow;\"></ion-icon>";
+    }
 }
 
 function getOverduePercentage($num){
@@ -32,10 +47,15 @@ function getOverduePercentage($num){
     if($num == 0){
         $percentage = $grade;
     }else {
-        $percentage = $grade + (($overdueThreshold - $num)*5);
-        
+        $percentage = round($grade-(($num*5)+100));
     }
-    return $percentage;
+    if ($percentage < 50){
+        return $percentage . "% " ."<ion-icon name=\"alert\" style=\"color:red;\"></ion-icon>";
+    }else if($percentage > 50){
+        return $percentage . "% " ."<ion-icon name=\"happy\" style=\"color:green;\"></ion-icon>";
+    }else {
+        return $percentage . "% " ."<ion-icon name=\"warning\" style=\"color:yellow;\"></ion-icon>";
+    }
 }
 
 function getRMAPercentage($num){
@@ -43,12 +63,17 @@ function getRMAPercentage($num){
     $rmaThreshold = 5;
     $percentage = 0;
     if($num == 0){
-        $percentage = $grade; 
+        $percentage = $grade;
     }else {
-        $percentage = $grade + (($rmaThreshold - $num)*5);
-        
+        $percentage = round($grade-(($num/$rmaThreshold)*50));
     }
-    return $percentage;
+    if ($percentage < 50){
+        return $percentage . "% " ."<ion-icon name=\"alert\" style=\"color:red;\"></ion-icon>";
+    }else if($percentage > 50){
+        return $percentage . "% " ."<ion-icon name=\"happy\" style=\"color:green;\"></ion-icon>";
+    }else {
+        return $percentage . "% " ."<ion-icon name=\"warning\" style=\"color:yellow;\"></ion-icon>";
+    }
 }
 
 function getOrderedPartsPercentage($num){
@@ -58,10 +83,15 @@ function getOrderedPartsPercentage($num){
     if($num == 0){
         $percentage = $grade;
     }else {
-        $percentage = $grade + (($orderedPartsThreshold - $num)*5);
-        
+        $percentage = round($grade-(($num/$orderedPartsThreshold)*50));
     }
-    return $percentage;
+    if ($percentage < 50){
+        return $percentage . "% " ."<ion-icon name=\"alert\" style=\"color:red;\"></ion-icon>";
+    }else if($percentage > 50){
+        return $percentage . "% " ."<ion-icon name=\"happy\" style=\"color:green;\"></ion-icon>";
+    }else {
+        return $percentage . "% " ."<ion-icon name=\"warning\" style=\"color:yellow;\"></ion-icon>";
+    }
 }
 
 ?>

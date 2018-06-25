@@ -55,7 +55,7 @@
             </div>
         </div>
         <br>
-        <h4>As of <span id="date"></span></h4>
+        <h4>Summary for the Day - <span id="date"></span></h4>
         <script type="text/javascript" src="../js/overallSummary.js" async></script>
         <div class="row">
             <div class="col-sm-8">
@@ -66,7 +66,6 @@
                             <th>No. of Tickets of the Day</th>
                             <th>Threshold</th>
                             <th>Score</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,19 +78,20 @@
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['open_ticket_day'] . "</td>";
+                                    echo "<td id=\"numofopen\">" . $row['open_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
-                                <td>15</td>
+                                <td>15 units</td>
                                 <?php
-                                $sql = "SELECT openticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT open_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['openticket_score'] . "%</td>";
+                                    echo "<td>" . getOpenPercentage($row['open_ticket_day']) . "</td>";
                                 }
                             ?>
+
                         </tr>
                         <tr>
                             <td>Pick Up</td>
@@ -102,17 +102,17 @@
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['pickup_ticket_day'] . "</td>";
+                                    echo "<td id=\"numofpickup\">" . $row['pickup_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
-                                <td>15</td>
+                                <td>15 units</td>
                                 <?php
-                                $sql = "SELECT pickupticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT pickup_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['pickupticket_score'] . "%</td>";
+                                    echo "<td>" . getPickUpPercentage($row['pickup_ticket_day']) . "</td>";
                                 }
                             ?>
                         </tr>
@@ -125,17 +125,17 @@
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['rma_ticket_day'] . "</td>";
+                                    echo "<td id=\"numofrma\">" . $row['rma_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
-                                <td>5</td>
+                                <td>5 units</td>
                                 <?php
-                                $sql = "SELECT rmaticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT rma_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['rmaticket_score'] . "%</td>";
+                                    echo "<td>" . getRMAPercentage($row['rma_ticket_day']) . "</td>";
                                 }
                             ?>
                         </tr>
@@ -148,17 +148,17 @@
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['orderedpart_ticket_day'] . "</td>";
+                                    echo "<td id=\"numoforderedpart\">" . $row['orderedpart_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
-                                <td>5</td>
+                                <td>5 units</td>
                                 <?php
-                                $sql = "SELECT orderedpartticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT orderedpart_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['orderedpartticket_score'] . "%</td>";
+                                    echo "<td>" . getOrderedPartsPercentage($row['orderedpart_ticket_day']) . "</td>";
                                 }
                             ?>
                         </tr>
@@ -171,19 +171,26 @@
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['overdue_ticket_day'] . "</td>";
+                                    echo "<td id=\"numofoverdue\">" . $row['overdue_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
-                                <td>0</td>
+                                <td>0 units</td>
                                 <?php
-                                $sql = "SELECT overdueticket_score FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT overdue_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
-                                    echo "<td>" . $row['overdueticket_score'] . "%</td>";
+                                    echo "<td>" . getOverduePercentage($row['overdue_ticket_day']) . "</td>";
                                 }
                             ?>
+                        </tr>
+                        <tr>
+                            <td>All</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,16 +198,20 @@
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-header">Total number of units today</div>
-                    <?php
-                        $sql = "";
-                    ?>
-                        <div class="card-body"></div>
+                    <div id="totalunitsday" class="card-body display-4" style="font-size:35px;"></div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header">Overall Average Units/day</div>
+                    <div id="totalunitsday" class="card-body display-4" style="font-size:35px;">SAMPLE</div>
                 </div>
 
             </div>
         </div>
-        <h4>As of <span id="date2"></span></h4>
-        <script type="text/javascript" src="../js/overallSummary.js" async></script>
+        <br>
+        <div class="header">
+            <h4>Summary for the Month of <span id="date2"></span></h4>
+        </div>
         <div class="row">
             <div class="col-sm-8">
                 <table class="table">
@@ -210,7 +221,6 @@
                             <th>No. of Tickets of the Month</th>
                             <th>Threshold</th>
                             <th>Score</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -222,12 +232,13 @@
                             $sql = "SELECT open_ticket_day FROM ticketsday;";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                            $sum = 0;
                             foreach ($data as $row){
                                 $sum = $sum + $row['open_ticket_day'];
                             }
                             echo "<td>" . $sum . "</td>";
                             ?>
-                                <td></td>
+                                <td>40 units</td>
                                 <td></td>
                         </tr>
                         <tr>
@@ -238,12 +249,13 @@
                             $sql = "SELECT pickup_ticket_day FROM ticketsday;";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                            $sum = 0;
                             foreach ($data as $row){
-                                $sum2 = $sum2 + $row['pickup_ticket_day'];
+                                $sum = $sum + $row['pickup_ticket_day'];
                             }
-                            echo "<td>" . $sum2 . "</td>";
+                            echo "<td>" . $sum . "</td>";
                             ?>
-                                <td></td>
+                                <td>40 units</td>
                                 <td></td>
                         </tr>
                         <tr>
@@ -254,12 +266,13 @@
                             $sql = "SELECT rma_ticket_day FROM ticketsday;";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                            $sum = 0;
                             foreach ($data as $row){
-                                $sum3 = $sum3 + $row['rma_ticket_day'];
+                                $sum = $sum + $row['rma_ticket_day'];
                             }
-                            echo "<td>" . $sum3 . "</td>";
+                            echo "<td>" . $sum . "</td>";
                             ?>
-                                <td></td>
+                                <td>10 units</td>
                                 <td></td>
                         </tr>
                         <tr>
@@ -270,12 +283,13 @@
                             $sql = "SELECT orderedpart_ticket_day FROM ticketsday;";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                            $sum = 0;
                             foreach ($data as $row){
-                                $sum4 = $sum4 + $row['orderedpart_ticket_day'];
+                                $sum = $sum + $row['orderedpart_ticket_day'];
                             }
-                            echo "<td>" . $sum4 . "</td>";
+                            echo "<td>" . $sum . "</td>";
                             ?>
-                                <td></td>
+                                <td>10 units</td>
                                 <td></td>
                         </tr>
                         <tr>
@@ -286,12 +300,13 @@
                             $sql = "SELECT overdue_ticket_day FROM ticketsday;";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                            $sum = 0;
                             foreach ($data as $row){
-                                $sum5 = $sum5 + $row['overdue_ticket_day'];
+                                $sum = $sum + $row['overdue_ticket_day'];
                             }
-                            echo "<td>" . $sum5 . "</td>";
+                            echo "<td>" . $sum . "</td>";
                             ?>
-                                <td></td>
+                                <td>0 units</td>
                                 <td></td>
                         </tr>
                     </tbody>
@@ -307,6 +322,8 @@
         </div>
 
     </div>
+    <script src="../js/addUnits.js" async></script>
+    <script type="text/javascript" src="../js/overallSummary.js" async></script>
 </body>
 
 </html>

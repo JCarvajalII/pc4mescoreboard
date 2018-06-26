@@ -146,7 +146,13 @@
                                 $sql = "SELECT rma_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $numrma = 0;
                                 foreach ($data as $row){
+                                    $numrma = $row['rma_ticket_day'];
+                                }
+                                if (empty($numrma)) {
+                                    echo "<td id=\"numofrma\">0</td>";
+                                } else {
                                     echo "<td id=\"numofrma\">" . $row['rma_ticket_day'] . "</td>";
                                 }
                                 
@@ -156,8 +162,14 @@
                                 $sql = "SELECT rma_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $pickupscore = 0;
                                 foreach ($data as $row){
-                                    echo "<td id=\"rmaScore\">" . getRMAPercentage($row['rma_ticket_day']) . "</td>";
+                                    $pickupscore = $row['rma_ticket_day'];
+                                }
+                                if (empty($pickupscore)) {
+                                    echo "<td id=\"rmaScore\">" . getRMAPercentage(0) . "</td>";
+                                } else {
+                                    echo "<td id=\"rmaScore\">" . getRMAPercentage($pickupscore) . "</td>";
                                 }
                             ?>
                         </tr>
@@ -167,7 +179,13 @@
                                 $sql = "SELECT orderedpart_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $numorderedpart = 0;
                                 foreach ($data as $row){
+                                    $numorderedpart = $row['orderedpart_ticket_day'];
+                                }
+                                if (empty($numorderedpart)) {
+                                    echo "<td id=\"numoforderedpart\">0</td>";
+                                } else {
                                     echo "<td id=\"numoforderedpart\">" . $row['orderedpart_ticket_day'] . "</td>";
                                 }
                                 
@@ -177,7 +195,13 @@
                                 $sql = "SELECT orderedpart_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $orderedpartscore = 0;
                                 foreach ($data as $row){
+                                    $orderedpartscore = $row['orderedpart_ticket_day'];
+                                }
+                                if (empty($orderedpartscore)) {
+                                    echo "<td id=\"orderedpartScore\">" . getOrderedPartsPercentage(0) . "</td>";
+                                } else {
                                     echo "<td id=\"orderedpartScore\">" . getOrderedPartsPercentage($row['orderedpart_ticket_day']) . "</td>";
                                 }
                             ?>
@@ -188,7 +212,13 @@
                                 $sql = "SELECT overdue_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $numoverdue = 0;
                                 foreach ($data as $row){
+                                    $numoverdue = $row['overdue_ticket_day'];
+                                }
+                                if (empty($numoverdue)) {
+                                    echo "<td id=\"numofoverdue\">0</td>";
+                                } else {
                                     echo "<td id=\"numofoverdue\">" . $row['overdue_ticket_day'] . "</td>";
                                 }
                                 
@@ -198,7 +228,13 @@
                                 $sql = "SELECT overdue_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $overduescore = 0;
                                 foreach ($data as $row){
+                                    $overduescore = $row['overdue_ticket_day'];
+                                }
+                                if (empty($overduescore)) {
+                                    echo "<td id=\"overdueScore\">" . getOverduePercentage(0) . "</td>";
+                                } else {
                                     echo "<td id=\"overdueScore\">" . getOverduePercentage($row['overdue_ticket_day']) . "</td>";
                                 }
                             ?>

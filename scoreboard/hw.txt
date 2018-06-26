@@ -36,3 +36,18 @@ total_rma_ticket
 score_month
 date(month and year only)
 td_id (FK)
+
+
+
+
+
+
+
+
+
+make a php file for querying data to avoid redundancy
+
+
+CODE IGNITER
+SWIFT
+OBJECTIVE C

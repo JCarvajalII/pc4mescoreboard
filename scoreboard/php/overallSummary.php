@@ -37,26 +37,29 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class=" text-center">
-                    <ion-icon name="trending-up"></ion-icon>Scoreboard</h1>
-            </div>
-        </div>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <a class="navbar-brand" href="#">PIC</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="overallSummary.php">Summary</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid bg-light">
+        <br>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <h1 class="card-header">
-                        <a href="../index.php">
-                            <ion-icon name="arrow-round-back"></ion-icon>
-                        </a>Overall Summary</h1>
+                    <h1 class="card-header">Overall Summary</h1>
                 </div>
             </div>
         </div>
         <br>
         <h4>Summary for the Day - <span id="date"></span></h4>
-        <script type="text/javascript" src="../js/overallSummary.js" async></script>
         <div class="row">
             <div class="col-sm-8">
                 <table class="table">
@@ -73,22 +76,33 @@
                             <td>Open</td>
                             <?php
                                 include_once 'connectDB.php';
-                                include_once 'test.php';
-                                $sql = "SELECT open_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                include_once 'getPercentage.php';
+                                $sql = "SELECT open_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $numopen = 0;
                                 foreach ($data as $row){
+                                    $numopen = $row['open_ticket_day'];
+                                }
+                                if(empty($numopen)){
+                                    echo "<td id=\"numofopen\">0</td>";
+                                }else {
                                     echo "<td id=\"numofopen\">" . $row['open_ticket_day'] . "</td>";
                                 }
-                                
                             ?>
                                 <td>15</td>
                                 <?php
-                                $sql = "SELECT open_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT open_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $openscore = 0;
                                 foreach ($data as $row){
-                                    echo "<td id=\"openScore\">" . getOpenPercentage($row['open_ticket_day']) . "</td>";
+                                    $openscore = $row['open_ticket_day'];
+                                }
+                                if(empty($openscore)) {
+                                    echo "<td id=\"openScore\">" . getOpenPercentage(0) . "</td>";
+                                } else {
+                                    echo "<td id=\"openScore\">" . getOpenPercentage($openscore) . "</td>";   
                                 }
                             ?>
 
@@ -96,22 +110,32 @@
                         <tr>
                             <td>Pick Up</td>
                             <?php
-                                include_once 'connectDB.php';
-                                include_once 'test.php';
-                                $sql = "SELECT pickup_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT pickup_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $numpickup = 0;
                                 foreach ($data as $row){
+                                    $numpickup = $row['pickup_ticket_day'];
+                                }
+                                if (empty($numpickup)) {
+                                    echo "<td id=\"numofpickup\">0</td>";
+                                } else {
                                     echo "<td id=\"numofpickup\">" . $row['pickup_ticket_day'] . "</td>";
                                 }
                                 
                             ?>
                                 <td>15</td>
                                 <?php
-                                $sql = "SELECT pickup_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT pickup_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
+                                $pickupscore = 0;
                                 foreach ($data as $row){
+                                    $pickupscore = $row['pickup_ticket_day'];
+                                }
+                                if (empty($pickupscore)) {
+                                    echo "<td id=\"pickupScore\">" . getPickUpPercentage(0) . "</td>";
+                                } else {
                                     echo "<td id=\"pickupScore\">" . getPickUpPercentage($row['pickup_ticket_day']) . "</td>";
                                 }
                             ?>
@@ -119,9 +143,7 @@
                         <tr>
                             <td>RMA</td>
                             <?php
-                                include_once 'connectDB.php';
-                                include_once 'test.php';
-                                $sql = "SELECT rma_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT rma_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -131,7 +153,7 @@
                             ?>
                                 <td>5</td>
                                 <?php
-                                $sql = "SELECT rma_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT rma_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -142,9 +164,7 @@
                         <tr>
                             <td>Ordered Parts</td>
                             <?php
-                                include_once 'connectDB.php';
-                                include_once 'test.php';
-                                $sql = "SELECT orderedpart_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT orderedpart_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -154,7 +174,7 @@
                             ?>
                                 <td>5</td>
                                 <?php
-                                $sql = "SELECT orderedpart_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT orderedpart_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -165,9 +185,7 @@
                         <tr>
                             <td>Overdue</td>
                             <?php
-                                include_once 'connectDB.php';
-                                include_once 'test.php';
-                                $sql = "SELECT overdue_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT overdue_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -177,7 +195,7 @@
                             ?>
                                 <td>0</td>
                                 <?php
-                                $sql = "SELECT overdue_ticket_day FROM ticketsday ORDER BY td_id DESC LIMIT 1";
+                                $sql = "SELECT overdue_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE) AND DAY(date) = DAY(CURRENT_DATE);";
                                 $result = $db_con->query($sql);
                                 $data = $result->fetchAll(PDO::FETCH_ASSOC);
                                 foreach ($data as $row){
@@ -185,26 +203,29 @@
                                 }
                             ?>
                         </tr>
-                        <tr>
-                            <td>All</td>
-                            <td id="totalunitsday"></td>
-                            <td>40</td>
-                            <td id="aveScore"></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-header">Total number of units today</div>
-                    <div class="card-body display-4" style="font-size:35px;"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">Total units today</div>
+                            <div class="card-body" id="totalunitsday" style="font-size:35px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">Ave. Score</div>
+                            <div class="card-body" id="aveScoreDay" style="font-size:35px;"></div>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header">Overall Average Units/day</div>
-                    <div id="totalunitsday" class="card-body display-4" style="font-size:35px;">SAMPLE</div>
+                    <div class="card-header"></div>
+                    <div class="card-body"></div>
                 </div>
-
             </div>
         </div>
         <br>
@@ -226,8 +247,6 @@
                         <tr>
                             <td>Open</td>
                             <?php
-                            include_once 'connectDB.php';
-                            include_once 'test.php';
                             $sql = "SELECT open_ticket_day, date FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE);";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -237,14 +256,12 @@
                             }
                             echo "<td id=\"sumopentickets\">" . $sumopentickets . "</td>";
                             ?>
-                                <td>50</td>
-                                <td></td>
+                                <td id="openMonthThre">50</td>
+                                <td id="openMonthPer">0%</td>
                         </tr>
                         <tr>
                             <td>Pick Up</td>
                             <?php
-                            include_once 'connectDB.php';
-                            include_once 'test.php';
                             $sql = "SELECT pickup_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE);";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -252,16 +269,14 @@
                             foreach ($data as $row){
                                 $sumpickuptickets = $sumpickuptickets + $row['pickup_ticket_day'];
                             }
-                            echo "<td id+\"sumpickuptickets\">" . $sumpickuptickets . "</td>";
+                            echo "<td id=\"sumpickuptickets\">" . $sumpickuptickets . "</td>";
                             ?>
-                                <td>50</td>
-                                <td></td>
+                                <td id="pickupMonthThres">50</td>
+                                <td id="pickupMonthPer">0%</td>
                         </tr>
                         <tr>
                             <td>RMA</td>
                             <?php
-                            include_once 'connectDB.php';
-                            include_once 'test.php';
                             $sql = "SELECT rma_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE);";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -271,14 +286,12 @@
                             }
                             echo "<td id=\"sumrmatickets\">" . $sumrmatickets . "</td>";
                             ?>
-                                <td>25</td>
-                                <td></td>
+                                <td id="rmaMonthThres">25</td>
+                                <td id="rmaMonthPer">0%</td>
                         </tr>
                         <tr>
                             <td>Ordered Parts</td>
                             <?php
-                            include_once 'connectDB.php';
-                            include_once 'test.php';
                             $sql = "SELECT orderedpart_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE);";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -288,14 +301,12 @@
                             }
                             echo "<td id=\"sumorderedpartstickets\">" . $sumorderedpartstickets . "</td>";
                             ?>
-                                <td>25</td>
-                                <td></td>
+                                <td id="orderedpartMonthThres">25</td>
+                                <td id="orderedpartMonthPer">0%</td>
                         </tr>
                         <tr>
                             <td>Overdue</td>
                             <?php
-                            include_once 'connectDB.php';
-                            include_once 'test.php';
                             $sql = "SELECT overdue_ticket_day FROM ticketsday WHERE YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = MONTH(CURRENT_DATE);";
                             $result = $db_con->query($sql);
                             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -305,21 +316,30 @@
                             }
                             echo "<td id=\"sumoverduetickets\">" . $sumoverduetickets . "</td>";
                             ?>
-                                <td>0</td>
-                                <td></td>
-                        </tr>
-                        <tr>
-                            <td>All</td>
-                            <td id="totalsummonth"></td>
-                            <td>150</td>
-                            <td></td>
+                                <td id="overdueMonthThres">0</td>
+                                <td id="overdueMonthPer">0%</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">Total units this month</div>
+                            <div class="card-body" id="totalsummonth" style="font-size:35px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">Ave. Score</div>
+                            <div class="card-body" id="aveScoreMonth" style="font-size:35px;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <div class="card">
-                    <div class="card-header">Total number of units this month</div>
+                    <div class="card-header"></div>
                     <div class="card-body"></div>
                 </div>
             </div>
@@ -327,10 +347,7 @@
         </div>
 
     </div>
-    <script type="text/javascript" src="../js/addUnitsDay.js" async></script>
-    <script type="text/javascript" src="../js/overallSummary.js" async></script>
-    <script type="text/javascript" src="../js/aveScoreDay.js" async></script>
-    <script type="text/javascript" src="../js/addUnitsMonth.js" async></script>
+    <script type="text/javascript" src="../js/main.js" async></script>
 </body>
 
 </html>
